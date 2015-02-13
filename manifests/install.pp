@@ -4,7 +4,7 @@
 #
 class knot::install inherits knot {
 
-  if $package_knotsrc {
+  if $manage_package_repo {
     apt::source { 'knot_official':
       comment     => 'Official repository for knot provided by knot-dns.cz',
       location    => 'http://deb.knot-dns.cz/debian/',

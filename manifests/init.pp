@@ -24,8 +24,8 @@
 class knot (
   $package_ensure       = $::knot::params::package_ensure,
   $package_name         = $::knot::params::package_name,
-  $package_knotsrc      = $::knot::params::package_knotsrc,
   $package_distcodename = $::knot::params::package_distcodename,
+  $manage_package_repo  = $::knot::params::manage_package_repo,
   $service_name         = $::knot::params::service_name,
   $service_enable       = $::knot::params::service_enable,
   $service_ensure       = $::knot::params::service_ensure,

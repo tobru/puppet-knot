@@ -16,8 +16,8 @@ class knot::params {
 
   # package parameters
   $package_ensure = installed
-  $package_knotsrc = false
   $package_distcodename = $::lsbdistcodename
+  $manage_package_repo = false
 
   # service parameters
   $service_enable = true
