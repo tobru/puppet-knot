@@ -1,0 +1,9 @@
+# THIS CONFIGURATION IS MANAGED BY PUPPET
+# see man 5 knot.conf for all available configuration options
+system {
+
+ <% config_system.each do |k,v| -%>
+ <%= k %> <%= v %>;
+ <% end -%>
+
+}
