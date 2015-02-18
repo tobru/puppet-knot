@@ -13,6 +13,8 @@ class knot::config {
   $zone_storage  = $knot::zone_storage
   $dnssec_enable = $knot::dnssec_enable
   $dnssec_keydir = $knot::dnssec_keydir
+  $service_user  = $knot::service_user
+  $service_group = $knot::service_group
 
   # merge two hashes:
   # * the configuration hash from the user calling $knot::config_*
@@ -28,17 +30,25 @@ class knot::config {
   file {
     $config_file:
       ensure  => file,
+      owner   => $service_user,
+      group   => $service_group,
       content => template('knot/knot.conf.erb');
     $zones_file:
       ensure  => file,
+      owner   => $service_user,
+      group   => $service_group,
       content => template('knot/zones.conf.erb');
     $zone_storage:
-      ensure => directory;
+      ensure => directory,
+      owner  => $service_user,
+      group  => $service_group;
   }
 
   if $dnssec_enable {
     file { $dnssec_keydir:
       ensure => directory,
+      owner  => $service_user,
+      group  => $service_group,
     }
   }
 

@@ -30,6 +30,8 @@ class knot (
   $service_enable       = $::knot::params::service_enable,
   $service_ensure       = $::knot::params::service_ensure,
   $service_manage       = $::knot::params::service_manage,
+  $service_user         = $::knot::params::service_user,
+  $service_group        = $::knot::params::service_group,
   $main_config_file     = $::knot::params::main_config_file,
   $zones_config_file    = $::knot::params::zones_config_file,
   $system               = $::knot::params::system,

@@ -6,8 +6,10 @@
 class knot::params {
   case $::osfamily {
     'Debian': {
-      $package_name = 'knot'
-      $service_name = 'knot'
+      $package_name  = 'knot'
+      $service_name  = 'knot'
+      $service_user  = 'knot'
+      $service_group = 'knot'
     }
     default: {
       fail("${::operatingsystem} not supported")
@@ -31,7 +33,6 @@ class knot::params {
   $system = {
     identity => 'on',
     version  => 'on',
-    user     => 'knot.knot',
   }
   $log = {
     syslog => {
