@@ -31,12 +31,21 @@ class knot (
   $service_ensure       = $::knot::params::service_ensure,
   $service_manage       = $::knot::params::service_manage,
   $config_file          = $::knot::params::config_file,
-  $config_system        = $::knot::params::config_system,
+  $system               = $::knot::params::system,
+  $log                  = $::knot::params::log,
+  $interfaces           = $::knot::params::interfaces,
+  $control              = $::knot::params::control,
+  $keys                 = undef,
+  $remotes              = undef,
+  $groups               = undef,
 ) inherits ::knot::params {
 
   # validate parameters here:
   # validate_absolute_path, validate_bool, validate_string, validate_hash
   # validate_array, ... (see stdlib docs)
+  if $keys { validate_hash($keys) }
+  if $remotes { validate_hash($remotes) }
+  if $groups { validate_hash($groups) }
 
   class { '::knot::install': } ->
   class { '::knot::config': } ~>

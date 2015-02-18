@@ -25,11 +25,33 @@ class knot::params {
   $service_manage = true
 
   # knot configuration defaults
+  # coming from the package installation
   $config_file = '/etc/knot/knot.conf.puppet'
-  $config_system = {
+  $system = {
     identity => 'on',
-    version => 'on',
-    user => 'knot.knot',
+    version  => 'on',
+    user     => 'knot.knot',
+  }
+  $log = {
+    syslog => {
+      any  => 'info'
+    },
+    stderr => {
+      any  => 'warning'
+    }
+  }
+  $interfaces = {
+    all_ipv4  => {
+      address => '0.0.0.0',
+      port    => 53,
+    },
+    all_ipv6  => {
+      address => '[::]',
+      port    => 53,
+    }
+  }
+  $control = {
+    listen-on => 'knot.sock'
   }
 
 }

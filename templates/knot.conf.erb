@@ -1,9 +1,61 @@
 # THIS CONFIGURATION IS MANAGED BY PUPPET
 # see man 5 knot.conf for all available configuration options
 system {
-
- <% config_system.each do |k,v| -%>
- <%= k %> <%= v %>;
- <% end -%>
-
+<%- @system.each do |k,v| -%>
+  <%= k %> <%= v %>;
+<%- end -%>
 }
+
+interfaces {
+<%- @interfaces.each do |k,v| -%>
+  <%= k -%> {
+  <%- v.each do |y,z| -%>
+    <%= y %> <%= z %>;
+  <%- end -%>
+  }
+<%- end -%>
+}
+
+control {
+<%- @control.each do |k,v| -%>
+  <%= k %> <%= v %>;
+<%- end -%>
+}
+
+log {
+<%- @log.each do |k,v| -%>
+  <%= k -%> {
+  <%- v.each do |y,z| -%>
+    <%= y %> <%= z %>;
+  <%- end -%>
+  }
+<%- end -%>
+}
+
+<%- if @keys -%>
+keys {
+<%- @keys.each do |k,v| -%>
+  <%= k %> <%= v['algorithm'] %> "<%= v['key'] %>";
+<%- end -%>
+}
+<%- end -%>
+
+<%- if @remotes -%>
+remotes {
+<%- @remotes.each do |k,v| -%>
+  <%= k -%> {
+  <%- v.each do |y,z| -%>
+    <%= y %> <%= z %>;
+  <%- end -%>
+  }
+<%- end -%>
+}
+<%- end -%>
+
+<%- if @groups -%>
+groups {
+<%- @groups.each do |k,v| -%>
+  <%= k %> { <%= v %> }
+<%- end -%>
+}
+<%- end -%>
