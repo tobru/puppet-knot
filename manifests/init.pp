@@ -15,11 +15,11 @@
 #
 # === Authors
 #
-# tobru
+# Tobias Brunner <tobias@tobru.ch>
 #
 # === Copyright
 #
-# Copyright 2015 tobru
+# Copyright 2015 Tobias Brunner
 #
 class knot (
   $package_ensure       = $::knot::params::package_ensure,
@@ -30,7 +30,8 @@ class knot (
   $service_enable       = $::knot::params::service_enable,
   $service_ensure       = $::knot::params::service_ensure,
   $service_manage       = $::knot::params::service_manage,
-  $config_file          = $::knot::params::config_file,
+  $main_config_file     = $::knot::params::main_config_file,
+  $zones_config_file    = $::knot::params::zones_config_file,
   $system               = $::knot::params::system,
   $zone_options         = undef,
   $log                  = $::knot::params::log,
@@ -42,6 +43,7 @@ class knot (
   $zone_storage         = $::knot::params::zone_storage,
   $dnssec_enable        = false,
   $dnssec_keydir        = $::knot::params::dnssec_keydir,
+  $zones                = {},
 ) inherits ::knot::params {
 
   # validate parameters here:

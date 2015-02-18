@@ -7,7 +7,7 @@ system {
 }
 
 zones {
-  storage <%= @zone_storage %>;
+  storage "<%= @zone_storage %>";
 <%- if @dnssec_enable -%>
   dnssec-enable on;
   dnssec-keydir "<%= @dnssec_keydir %>";
@@ -15,6 +15,7 @@ zones {
 <%- @zone_options.each do |k,v| -%>
   <%= k %> <%= v %>;
 <%- end -%>
+  include "<%= @zones_config_file %>";
 }
 
 interfaces {

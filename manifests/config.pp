@@ -5,7 +5,8 @@
 class knot::config {
 
   # get variables from the toplevel manifest for usage in the template
-  $config_file   = $knot::config_file
+  $config_file   = $knot::main_config_file
+  $zones_file    = $knot::zones_config_file
   $keys          = $knot::keys
   $remotes       = $knot::remotes
   $groups        = $knot::groups
@@ -28,6 +29,9 @@ class knot::config {
     $config_file:
       ensure  => file,
       content => template('knot/knot.conf.erb');
+    $zones_file:
+      ensure  => file,
+      content => template('knot/zones.conf.erb');
     $zone_storage:
       ensure => directory;
   }

@@ -1,0 +1,10 @@
+# THIS CONFIGURATION IS MANAGED BY PUPPET
+# see man 5 knot.conf for all available configuration options
+<%- @zones.each do |k,v| -%>
+<%= k -%> {
+  file "<%= k -%>.zone";
+<%- if v then v.each do |y,z| -%>
+  <%= y %> <%= z %>;
+<%- end end -%>
+}
+<%- end -%>
