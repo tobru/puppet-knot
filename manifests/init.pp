@@ -45,6 +45,7 @@ class knot (
   $zone_storage         = $::knot::params::zone_storage,
   $dnssec_enable        = false,
   $dnssec_keydir        = $::knot::params::dnssec_keydir,
+  $zone_defaults        = undef,
   $zones                = {},
 ) inherits ::knot::params {
 

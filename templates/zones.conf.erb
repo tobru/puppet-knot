@@ -3,7 +3,11 @@
 <%- @zones.each do |k,v| -%>
 <%= k -%> {
   file "<%= k -%>.zone";
-<%- if v then v.each do |y,z| -%>
+<%- if (@zone_defaults && v) then _v = @zone_defaults.merge(v) -%>
+<%- elsif v then _v = v -%>
+<%- elsif @zone_defaults then _v = @zone_defaults -%>
+<%- end -%>
+<%- if _v then _v.each do |y,z| -%>
   <%= y %> <%= z %>;
 <%- end end -%>
 }

@@ -15,6 +15,8 @@ class knot::config {
   $dnssec_keydir = $knot::dnssec_keydir
   $service_user  = $knot::service_user
   $service_group = $knot::service_group
+  $zone_defaults = $knot::zone_defaults
+  $zones         = $knot::zones
 
   # merge two hashes:
   # * the configuration hash from the user calling $knot::config_*
