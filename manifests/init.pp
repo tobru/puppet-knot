@@ -32,12 +32,16 @@ class knot (
   $service_manage       = $::knot::params::service_manage,
   $config_file          = $::knot::params::config_file,
   $system               = $::knot::params::system,
+  $zone_options         = undef,
   $log                  = $::knot::params::log,
   $interfaces           = $::knot::params::interfaces,
   $control              = $::knot::params::control,
   $keys                 = undef,
   $remotes              = undef,
   $groups               = undef,
+  $zone_storage         = $::knot::params::zone_storage,
+  $dnssec_enable        = false,
+  $dnssec_keydir        = $::knot::params::dnssec_keydir,
 ) inherits ::knot::params {
 
   # validate parameters here:

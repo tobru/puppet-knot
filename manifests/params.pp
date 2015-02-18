@@ -53,5 +53,7 @@ class knot::params {
   $control = {
     listen-on => 'knot.sock'
   }
+  $zone_storage = '/var/lib/knot'
+  $dnssec_keydir = '/etc/knot/dnssec_keys.d'
 
 }

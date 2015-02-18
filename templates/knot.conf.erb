@@ -6,6 +6,17 @@ system {
 <%- end -%>
 }
 
+zones {
+  storage <%= @zone_storage %>;
+<%- if @dnssec_enable -%>
+  dnssec-enable on;
+  dnssec-keydir "<%= @dnssec_keydir %>";
+<%- end -%>
+<%- @zone_options.each do |k,v| -%>
+  <%= k %> <%= v %>;
+<%- end -%>
+}
+
 interfaces {
 <%- @interfaces.each do |k,v| -%>
   <%= k -%> {
