@@ -2,7 +2,12 @@
 #
 # This class is called from knot for install.
 #
-class knot::install inherits knot {
+class knot::install {
+
+  $package_name         = $knot::package_name
+  $package_ensure       = $knot::package_ensure
+  $manage_package_repo  = $knot::manage_package_repo
+  $package_distcodename = $knot::package_distcodename
 
   if $manage_package_repo {
     apt::source { 'knot_official':

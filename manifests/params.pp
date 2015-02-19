@@ -28,8 +28,8 @@ class knot::params {
 
   # knot configuration defaults
   # coming from the package installation
-  $main_config_file = '/etc/knot/knot.conf.puppet'
-  $zones_config_file = '/etc/knot/zones.conf.puppet'
+  $main_config_file = '/etc/knot/knot.conf'
+  $zones_config_file = '/etc/knot/zones.conf'
   $system = {
     identity => 'on',
     version  => 'on',
