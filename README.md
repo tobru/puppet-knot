@@ -13,48 +13,81 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
+This Puppet module manages the [Knot DNS](https://www.knot-dns.cz/) server.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
-
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
+Knot DNS server is a "High-performance authoritative-only DNS server". This Puppet module
+manages the configuration file `/etc/knot/knot.conf` and includes a separate configuration
+file for the zones under `/etc/knot/zones.conf`.
+Not every configuration parameter is directly exposed, instead it uses a "key/value" approach
+in hashes, so that if there will be more/changed/other parameters in the future the module
+will just work without any changes.
+It also manages the installation of the package and starting/restarting the system service.
 
 ## Setup
 
 ### What knot affects
 
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
+* Package `knot` installation. If `manage_package_repo` is true, it also adds the 
+  [official apt repository](https://www.knot-dns.cz/documentation/html/installation.html#installing-knot-dns-packages-on-debian) by using the [puppetlabs/apt](https://forge.puppetlabs.com/puppetlabs/apt) module
+* Service `knot` starting and restarting on configuration change
+* Writing of configuration files:
+  * `/etc/knot/knot.conf.puppet`
+  * `/etc/knot/zones.conf.puppet`
 
 ### Beginning with knot
 
-The very basic steps needed for a user to get the module up and running. 
+A simple `include knot` installs Knot DNS from the default package source and creates a configuration
+file with sane defaults. When starting Knot DNS it complains `warning: no zones loaded`, this tells
+us that it would make sense to add some zones.
 
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+Adding a zone is as simple as follows:
+```
+class { 'knot':
+  zones => { 'mydomain.tld' => '' }
+}
+```
+
+Zones will be added to `/etc/knot/zones.conf` with `file "mydomain.tld.zone";`.
+This means that Knot DNS expects to find a standard zone file ([Wikipedia](http://en.wikipedia.org/wiki/Zone_file#File_format))
+under `/var/lib/knot` (`storage` configuration directive under the `zones` section).
+
+*Note*: `zones` is a [hash](https://docs.puppetlabs.com/puppet/latest/reference/lang_datatypes.html#hashes)
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
+All parameter defaults are defined in `params.pp`. To pass a parameter to
+the module, they need to be passed to the main class.
+Here is a usage example for some parameters which most likely will be 
+changed:
+
+```
+```
+
+### Usage with hiera
+
+This module is fully compatible with hiera. Here is an example on how
+to pass the same parameters to hiera like to example above:
+
+```
+```
+
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+At this time it is only tested under Ubuntu 14.04, but it should also work on Debian or any other
+.deb based distribution.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+1. Fork it ( https://github.com/tobru/puppet-knot/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+Make sure your PR passes the Rspec tests.
