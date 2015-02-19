@@ -7,7 +7,7 @@
 <%- elsif v then _v = v -%>
 <%- elsif @zone_defaults then _v = @zone_defaults -%>
 <%- end -%>
-<%- if _v then _v.each do |y,z| -%>
+<%- if (_v && _v.length > 0) then _v.each do |y,z| -%>
   <%= y %> <%= z %>;
 <%- end end -%>
 }
