@@ -42,10 +42,14 @@ A simple `include knot` installs Knot DNS from the default package source and cr
 file with sane defaults. When starting Knot DNS it complains `warning: no zones loaded`, this tells
 us that it would make sense to add some zones.
 
-Adding a zone is as simple as follows:
+Adding zones is as simple as follows:
 ```
 class { 'knot':
-  zones => { 'mydomain.tld' => '' }
+  zones => { 'myzone.net'      => '',
+             'myotherzone.com' => {
+               'xfr-out'    => 'server1',
+               'notify-out' => 'server1' },
+           },
 }
 ```
 
@@ -53,29 +57,96 @@ Zones will be added to `/etc/knot/zones.conf` with `file "mydomain.tld.zone";`.
 This means that Knot DNS expects to find a standard zone file ([Wikipedia](http://en.wikipedia.org/wiki/Zone_file#File_format))
 under `/var/lib/knot` (`storage` configuration directive under the `zones` section).
 
-*Note*: `zones` is a [hash](https://docs.puppetlabs.com/puppet/latest/reference/lang_datatypes.html#hashes)
+*Note*: The paramter `zones` is a [hash](https://docs.puppetlabs.com/puppet/latest/reference/lang_datatypes.html#hashes)
 
 ## Usage
 
 All parameter defaults are defined in `params.pp`. To pass a parameter to
 the module, they need to be passed to the main class.
 Here is a usage example for some parameters which most likely will be 
-changed:
+changed by the module user:
 
 ```
+$zones = {
+  'myzone.net'      => '',
+  'myotherzone.com' => {
+    'xfr-out'    => 'server1',
+    'notify-out' => 'server1' },
+}
+class { 'knot':
+  manage_package_repo => false,
+  system              => { 'version' => 'off' },
+  groups              => { 'admins'  => 'server0' },
+  keys                => { 'key0.server0' => {
+                             'algorithm' => 'hmac-md5',
+                             'key'       => 'Wg==' }
+  },
+  zones               => $zones,
+}
 ```
 
-### Usage with hiera
+*Hint*: As you can see, most parameters are hashes which make them look weird
+and unreadable. That's a reason why using Hiera is recommended.
 
-This module is fully compatible with hiera. Here is an example on how
-to pass the same parameters to hiera like to example above:
+### Usage with Hiera
+
+This module is fully compatible with Hiera. Here is an example on how
+to pass parameters to the module:
 
 ```
+knot::manage_package_repo: true
+knot::package_distcodename: 'wheezy'
+knot::dnssec_enable: false
+
+knot::system:
+  version: 'off'
+knot::groups:
+  admins: 'server0'
+knot::log:
+  syslog:
+    any: 'warning'
+  stderr:
+    any: 'error, warning'
+    server: 'info'
+knot::keys:
+  key0.server0:
+    algorithm: 'hmac-md5'
+    key: 'Wg=='
+knot::remotes:
+  server0:
+    address: '127.0.0.1'
+    port: '53531'
+    key: 'key0.server0'
+    via: 'all_ipv4'
+  server1:
+    address: '127.0.0.1@53001'
+
+knot::zone_defaults:
+  xfr-out: 'server0'
+  notify-out: 'server0'
+knot::zones:
+  myzone.net:
+  myotherzone.com:
+    xfr-out: 'server1'
 ```
 
+### Managing zones (and defaults for all zones)
+
+Zones are passed to the main class in the `zones` hash. The configuration get's
+written to `/etc/knot/zones.conf`.
+To pass default values to all zones, the hash `zone_defaults` exists. Everything
+in this hash is applied to all zones. If a parameter needs to be overwritten for
+a single zone, just add this parameter to the zone, the zone parameters wins.
 
 ## Reference
 
+All parameters are documented inline. Have a look at `init.pp`
+
+## Testing
+
+The module has some small [smoke tests](https://docs.puppetlabs.com/guides/tests_smoke.html) available under the
+`tests/` subdirectory. To execute them invoke Puppet using the following simple command
+in the modules root path: `puppet apply --modulepath .. --noop tests/init.pp`
 
 ## Limitations
 
