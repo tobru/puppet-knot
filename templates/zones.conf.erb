@@ -3,9 +3,9 @@
 <%- @zones.each do |k,v| -%>
 <%= k -%> {
   file "<%= k -%>.zone";
-<%- if (@zone_defaults && v) then _v = @zone_defaults.merge(v) -%>
-<%- elsif v then _v = v -%>
-<%- elsif @zone_defaults then _v = @zone_defaults -%>
+<%- if (@zone_defaults && v && v.length > 0) then _v = @zone_defaults.merge(v) -%>
+<%- elsif (v && v.length > 0) then _v = v -%>
+<%- elsif (@zone_defaults && @zone_defaults.length > 0) then _v = @zone_defaults -%>
 <%- end -%>
 <%- if (_v && _v.length > 0) then _v.each do |y,z| -%>
   <%= y %> <%= z %>;
