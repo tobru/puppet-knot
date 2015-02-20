@@ -35,6 +35,8 @@ It also manages the installation of the package and starting/restarting the syst
 * Writing of configuration files:
   * `/etc/knot/knot.conf.puppet`
   * `/etc/knot/zones.conf.puppet`
+* Creation of the folders and managing of the user and group rights
+  on $zone_storage and $dnssec_keydir
 
 ### Beginning with knot
 
