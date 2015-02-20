@@ -7,17 +7,13 @@ system {
 <%- end -%>
 }
 
-zones {
-  storage "<%= @zone_storage %>";
-<%- if @dnssec_enable -%>
-  dnssec-enable on;
-  dnssec-keydir "<%= @dnssec_keydir %>";
+<%- if @keys -%>
+keys {
+<%- @keys.each do |k,v| -%>
+  <%= k %> <%= v['algorithm'] %> "<%= v['key'] %>";
 <%- end -%>
-<%- @zone_options.each do |k,v| -%>
-  <%= k %> <%= v %>;
-<%- end -%>
-  include "<%= @zones_config_file %>";
 }
+<%- end -%>
 
 interfaces {
 <%- @interfaces.each do |k,v| -%>
@@ -28,30 +24,6 @@ interfaces {
   }
 <%- end -%>
 }
-
-control {
-<%- @control.each do |k,v| -%>
-  <%= k %> <%= v %>;
-<%- end -%>
-}
-
-log {
-<%- @log.each do |k,v| -%>
-  <%= k -%> {
-  <%- v.each do |y,z| -%>
-    <%= y %> <%= z %>;
-  <%- end -%>
-  }
-<%- end -%>
-}
-
-<%- if @keys -%>
-keys {
-<%- @keys.each do |k,v| -%>
-  <%= k %> <%= v['algorithm'] %> "<%= v['key'] %>";
-<%- end -%>
-}
-<%- end -%>
 
 <%- if @remotes -%>
 remotes {
@@ -72,3 +44,31 @@ groups {
 <%- end -%>
 }
 <%- end -%>
+
+control {
+<%- @control.each do |k,v| -%>
+  <%= k %> <%= v %>;
+<%- end -%>
+}
+
+zones {
+  storage "<%= @zone_storage %>";
+<%- if @dnssec_enable -%>
+  dnssec-enable on;
+  dnssec-keydir "<%= @dnssec_keydir %>";
+<%- end -%>
+<%- @zone_options.each do |k,v| -%>
+  <%= k %> <%= v %>;
+<%- end -%>
+  include "<%= @zones_config_file %>";
+}
+
+log {
+<%- @log.each do |k,v| -%>
+  <%= k -%> {
+  <%- v.each do |y,z| -%>
+    <%= y %> <%= z %>;
+  <%- end -%>
+  }
+<%- end -%>
+}
