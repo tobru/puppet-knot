@@ -4,19 +4,22 @@
 #
 class knot::install {
 
-  $package_name         = $knot::package_name
-  $package_ensure       = $knot::package_ensure
-  $manage_package_repo  = $knot::manage_package_repo
-  $package_distcodename = $knot::package_distcodename
+  $package_name          = $knot::package_name
+  $package_ensure        = $knot::package_ensure
+  $manage_package_repo   = $knot::manage_package_repo
+  $package_repo_location = $knot::package_repo_location
+  $package_repo_repos    = $knot::package_repo_repos
+  $package_repo_key      = $knot::package_repo_key
+  $package_repo_key_src  = $knot::package_repo_key_src
 
   if $manage_package_repo {
     apt::source { 'knot_official':
       comment     => 'Official repository for knot provided by knot-dns.cz',
-      location    => 'http://deb.knot-dns.cz/debian/',
-      release     => $package_distcodename,
-      repos       => 'main',
-      key         => '4A7A714D',
-      key_source  => 'http://deb.knot-dns.cz/debian/apt.key',
+      location    => $package_repo_location,
+      release     => $::lsbdistcodename,
+      repos       => $package_repo_repos,
+      key         => $package_repo_key,
+      key_source  => $package_repo_key_src,
       include_src => true,
       include_deb => true,
     } ->

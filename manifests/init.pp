@@ -11,13 +11,29 @@
 # [*package_name*]
 #   Default: On Debian 'knot'. Package name to install knot
 #
-# [*package_distcodename*]
-#   Default: $::lsbdistcodename. Used in conjunction with *manage_package_repo*.
-#   Can be used to change the codename of the distro for the package repository
-#
 # [*manage_package_repo*]
 #   Default: false. If set to true, make sure the puppetlabs/apt module is available
 #   as it adds the knot-dns.cz repo to the APT sources
+#
+# [*package_repo_location*]
+#   Only used when $manage_package_repo is true.
+#   Default: Depends on $::lsbdistid, see params.pp
+#   Location of the package repository
+#
+# [*package_repo_repos*]
+#   Only used when $manage_package_repo is true.
+#   Default: Depends on $::lsbdistid, see params.pp
+#   Repos used on the repository location
+#
+# [*package_repo_key*]
+#   Only used when $manage_package_repo is true.
+#   Default: Depends on $::lsbdistid, see params.pp
+#   Signing key of the packages
+#
+# [*package_repo_key_src*]
+#   Only used when $manage_package_repo is true.
+#   Default: Depends on $::lsbdistid, see params.pp
+#   Source of the package signing public key
 #
 # [*service_name*]
 #   Default: On Debian 'knot'. Name of the system service to manage
@@ -141,31 +157,34 @@
 # Copyright 2015 Tobias Brunner
 #
 class knot (
-  $package_ensure       = $::knot::params::package_ensure,
-  $package_name         = $::knot::params::package_name,
-  $package_distcodename = $::knot::params::package_distcodename,
-  $manage_package_repo  = $::knot::params::manage_package_repo,
-  $service_name         = $::knot::params::service_name,
-  $service_enable       = $::knot::params::service_enable,
-  $service_ensure       = $::knot::params::service_ensure,
-  $service_manage       = $::knot::params::service_manage,
-  $service_user         = $::knot::params::service_user,
-  $service_group        = $::knot::params::service_group,
-  $main_config_file     = $::knot::params::main_config_file,
-  $zones_config_file    = $::knot::params::zones_config_file,
-  $system               = $::knot::params::system,
-  $log                  = $::knot::params::log,
-  $interfaces           = $::knot::params::interfaces,
-  $control              = $::knot::params::control,
-  $keys                 = undef,
-  $remotes              = undef,
-  $groups               = undef,
-  $dnssec_enable        = $::knot::params::dnssec_enable,
-  $dnssec_keydir        = $::knot::params::dnssec_keydir,
-  $zone_storage         = $::knot::params::zone_storage,
-  $zone_defaults        = undef,
-  $zone_options         = undef,
-  $zones                = {},
+  $package_ensure        = $::knot::params::package_ensure,
+  $package_name          = $::knot::params::package_name,
+  $package_repo_location = $::knot::params::package_repo_location,
+  $package_repo_repos    = $::knot::params::package_repo_repos,
+  $package_repo_key      = $::knot::params::package_repo_key,
+  $package_repo_key_src  = $::knot::params::package_repo_key_src,
+  $manage_package_repo   = $::knot::params::manage_package_repo,
+  $service_name          = $::knot::params::service_name,
+  $service_enable        = $::knot::params::service_enable,
+  $service_ensure        = $::knot::params::service_ensure,
+  $service_manage        = $::knot::params::service_manage,
+  $service_user          = $::knot::params::service_user,
+  $service_group         = $::knot::params::service_group,
+  $main_config_file      = $::knot::params::main_config_file,
+  $zones_config_file     = $::knot::params::zones_config_file,
+  $system                = $::knot::params::system,
+  $log                   = $::knot::params::log,
+  $interfaces            = $::knot::params::interfaces,
+  $control               = $::knot::params::control,
+  $keys                  = undef,
+  $remotes               = undef,
+  $groups                = undef,
+  $dnssec_enable         = $::knot::params::dnssec_enable,
+  $dnssec_keydir         = $::knot::params::dnssec_keydir,
+  $zone_storage          = $::knot::params::zone_storage,
+  $zone_defaults         = undef,
+  $zone_options          = undef,
+  $zones                 = {},
 ) inherits ::knot::params {
 
   # mandatory parameters

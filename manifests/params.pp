@@ -4,12 +4,26 @@
 # It sets variables according to platform.
 #
 class knot::params {
-  case $::osfamily {
+  case $::lsbdistid {
     'Debian': {
-      $package_name  = 'knot'
-      $service_name  = 'knot'
-      $service_user  = 'knot'
-      $service_group = 'knot'
+      $package_name          = 'knot'
+      $service_name          = 'knot'
+      $service_user          = 'knot'
+      $service_group         = 'knot'
+      $package_repo_location = 'http://deb.knot-dns.cz/debian/'
+      $package_repo_repos    = 'main'
+      $package_repo_key      = '4A7A714D'
+      $package_repo_key_src  = 'http://deb.knot-dns.cz/debian/apt.key'
+    }
+    'Ubuntu': {
+      $package_name          = 'knot'
+      $service_name          = 'knot'
+      $service_user          = 'knot'
+      $service_group         = 'knot'
+      $package_repo_location = 'http://ppa.launchpad.net/cz.nic-labs/knot-dns/ubuntu'
+      $package_repo_repos    = 'main'
+      $package_repo_key      = 'F9C59A45'
+      $package_repo_key_src  = undef
     }
     default: {
       fail("${::operatingsystem} not supported")

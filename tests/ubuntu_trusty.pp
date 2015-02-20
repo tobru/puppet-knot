@@ -13,7 +13,7 @@ class { 'knot':
   system              => { 'version' => 'off' },
   groups              => { 'admins'  => 'server0' },
   log                 => { 'syslog'  => { 'any'    => 'warning' },
-                           'stderr'  => { 'any'    => 'error, warning',
+                           'stderr'  => { 'any'    => 'error',
                                           'server' => 'info'  }
   },
   keys                => { 'key0.server0' => {
