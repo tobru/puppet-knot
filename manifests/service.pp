@@ -13,7 +13,7 @@ class knot::service {
   if $service_manage {
     # check config before managing service
     exec { 'check_knot_configuration':
-      command     => "/usr/sbin/knotc -c $knot::main_config_file checkconf",
+      command     => "/usr/sbin/knotc -c ${::knot::main_config_file} checkconf",
       refreshonly => true,
     } ->
     service { $service_name:
