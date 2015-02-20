@@ -189,8 +189,11 @@ class knot (
 
   # mandatory parameters
   validate_re($package_ensure, '^installed|present|absent|purged|held|latest$')
+  validate_string($package_repo_location)
+  validate_string($package_repo_repos)
+  validate_string($package_repo_key)
+  validate_string($package_repo_key_src)
   validate_string($package_name)
-  validate_string($package_distcodename)
   validate_bool($manage_package_repo)
   validate_string($service_name)
   validate_bool($service_enable)
