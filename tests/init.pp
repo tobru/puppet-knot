@@ -11,5 +11,7 @@
 #
 class { 'knot':
   zones => {  'myzone.net'      => '',
-              'myotherzone.com' => '' },
+              'myotherzone.com' => {
+                'xfr-out' => 'server1' },
+  },
 }
