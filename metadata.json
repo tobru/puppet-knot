@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "tobru",
   "summary": "Manage and configure Knot DNS",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "source": "https://github.com/tobru/puppet-knot",
   "project_page": "https://github.com/tobru/puppet-knot",
   "issues_url": "https://github.com/tobru/puppet-knot/issues",
