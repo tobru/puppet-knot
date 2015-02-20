@@ -43,7 +43,7 @@ class knot (
   $remotes              = undef,
   $groups               = undef,
   $zone_storage         = $::knot::params::zone_storage,
-  $dnssec_enable        = false,
+  $dnssec_enable        = $::knot::params::dnssec_enable,
   $dnssec_keydir        = $::knot::params::dnssec_keydir,
   $zone_defaults        = undef,
   $zones                = {},

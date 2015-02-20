@@ -28,6 +28,7 @@ class knot::params {
 
   # knot configuration defaults
   # coming from the package installation
+  $dnssec_enable = false
   $main_config_file = '/etc/knot/knot.conf'
   $zones_config_file = '/etc/knot/zones.conf'
   $system = {
