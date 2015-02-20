@@ -11,6 +11,11 @@ class knot::service {
   $service_enable = $knot::service_enable
 
   if $service_manage {
+    # check config before managing service
+    exec { 'check_knot_configuration':
+      command     => "/usr/sbin/knotc -c $knot::main_config_file checkconf",
+      refreshonly => true,
+    } ->
     service { $service_name:
       ensure     => $service_ensure,
       enable     => $service_enable,
