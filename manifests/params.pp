@@ -32,7 +32,6 @@ class knot::params {
 
   # package parameters
   $package_ensure = present
-  $package_distcodename = $::lsbdistcodename
   $manage_package_repo = false
 
   # service parameters
