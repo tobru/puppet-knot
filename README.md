@@ -150,6 +150,9 @@ The module has some small [smoke tests](https://docs.puppetlabs.com/guides/tests
 `tests/` subdirectory. To execute them invoke Puppet using the following simple command
 in the modules root path: `puppet apply --modulepath .. --noop tests/init.pp`
 
+There are also rspec-puppet tests available. To run them you first need to install all
+needed GEMs by running bundler. Then a rake task executes the Rspec tests: `bundle exec rake spec`.
+
 ## Limitations
 
 At this time it is only tested under Ubuntu 14.04, but it should also work on Debian or any other
