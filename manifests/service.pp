@@ -5,10 +5,10 @@
 #
 class knot::service {
 
-  $service_manage = $knot::service_manage
-  $service_name   = $knot::service_name
-  $service_ensure = $knot::service_ensure
-  $service_enable = $knot::service_enable
+  $service_manage = $::knot::service_manage
+  $service_name   = $::knot::service_name
+  $service_ensure = $::knot::service_ensure
+  $service_enable = $::knot::service_enable
 
   if $service_manage {
     # check config before managing service

@@ -4,13 +4,13 @@
 #
 class knot::install {
 
-  $package_name          = $knot::package_name
-  $package_ensure        = $knot::package_ensure
-  $manage_package_repo   = $knot::manage_package_repo
-  $package_repo_location = $knot::package_repo_location
-  $package_repo_repos    = $knot::package_repo_repos
-  $package_repo_key      = $knot::package_repo_key
-  $package_repo_key_src  = $knot::package_repo_key_src
+  $package_name          = $::knot::package_name
+  $package_ensure        = $::knot::package_ensure
+  $manage_package_repo   = $::knot::manage_package_repo
+  $package_repo_location = $::knot::package_repo_location
+  $package_repo_repos    = $::knot::package_repo_repos
+  $package_repo_key      = $::knot::package_repo_key
+  $package_repo_key_src  = $::knot::package_repo_key_src
 
   if $manage_package_repo {
     apt::source { 'knot_official':
