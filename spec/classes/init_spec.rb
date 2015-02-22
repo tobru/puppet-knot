@@ -25,6 +25,9 @@ describe 'knot' do
 
   context 'unsupported operating system' do
     describe 'knot class without any parameters and unkonw osfamily' do
+      let(:facts) {{
+        :osfamily => '',
+      }}
       it { is_expected.to raise_error(Puppet::Error, /OS family  not supported/) }
     end
   end

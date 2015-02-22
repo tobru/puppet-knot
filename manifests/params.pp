@@ -37,6 +37,10 @@ class knot::params {
       $service_name          = 'knot'
       $service_user          = 'knot'
       $service_group         = 'knot'
+      $package_repo_location = undef
+      $package_repo_repos    = undef
+      $package_repo_key      = undef
+      $package_repo_key_src  = undef
     }
     default: {
       fail("OS family ${::osfamily} not supported")
