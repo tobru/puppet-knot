@@ -28,6 +28,7 @@ class { 'knot':
                            'server1' => {
                              'address' => '127.0.0.1@53001' },
   },
+  zone_options        => { 'semantic-checks' => 'on' },
   zone_defaults       => { 'xfr-out'    => 'server0',
                            'notify-out' => 'server0' },
   zones               => $zones,

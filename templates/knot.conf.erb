@@ -57,9 +57,9 @@ zones {
   dnssec-enable on;
   dnssec-keydir "<%= @dnssec_keydir %>";
 <%- end -%>
-<%- @zone_options.each do |k,v| -%>
+<%- if @zone_options then @zone_options.each do |k,v| -%>
   <%= k %> <%= v %>;
-<%- end -%>
+<%- end end -%>
   include "<%= @zones_config_file %>";
 }
 
