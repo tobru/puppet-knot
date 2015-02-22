@@ -4,29 +4,42 @@
 # It sets variables according to platform.
 #
 class knot::params {
-  case $::lsbdistid {
+
+  # OS specific parameters
+  case $::osfamily {
     'Debian': {
       $package_name          = 'knot'
       $service_name          = 'knot'
       $service_user          = 'knot'
       $service_group         = 'knot'
-      $package_repo_location = 'http://deb.knot-dns.cz/debian/'
-      $package_repo_repos    = 'main'
-      $package_repo_key      = '4A7A714D'
-      $package_repo_key_src  = 'http://deb.knot-dns.cz/debian/apt.key'
+      # Choose repo location according to LSB distribution id
+      # Only used when manage_package_repo and on a Debian based OS
+      case $::lsbdistid {
+        'Debian': {
+          $package_repo_location = 'http://deb.knot-dns.cz/debian/'
+          $package_repo_repos    = 'main'
+          $package_repo_key      = '4A7A714D'
+          $package_repo_key_src  = 'http://deb.knot-dns.cz/debian/apt.key'
+        }
+        'Ubuntu': {
+          $package_repo_location = 'http://ppa.launchpad.net/cz.nic-labs/knot-dns/ubuntu'
+          $package_repo_repos    = 'main'
+          $package_repo_key      = 'F9C59A45'
+          $package_repo_key_src  = undef
+        }
+        default: {
+          fail("LSB distid ${::lsbdistid} not supported")
+        }
+      }
     }
-    'Ubuntu': {
+    'RedHat': {
       $package_name          = 'knot'
       $service_name          = 'knot'
       $service_user          = 'knot'
       $service_group         = 'knot'
-      $package_repo_location = 'http://ppa.launchpad.net/cz.nic-labs/knot-dns/ubuntu'
-      $package_repo_repos    = 'main'
-      $package_repo_key      = 'F9C59A45'
-      $package_repo_key_src  = undef
     }
     default: {
-      fail("${::operatingsystem} not supported")
+      fail("OS family ${::osfamily} not supported")
     }
   }
 

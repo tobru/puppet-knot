@@ -2,11 +2,12 @@ require 'spec_helper'
 
 describe 'knot' do
   context 'supported operating systems' do
-    ['Debian', 'Ubuntu'].each do |lsbdistid|
-      describe "knot class without any parameters on #{lsbdistid}" do
+    ['Debian', 'RedHat'].each do |osfamily|
+      describe "knot class without any parameters on #{osfamily}" do
         let(:params) {{ }}
         let(:facts) {{
-          :lsbdistid => lsbdistid,
+          :osfamily  => osfamily,
+          :lsbdistid => 'Debian',
         }}
 
         it { is_expected.to compile.with_all_deps }
@@ -22,14 +23,9 @@ describe 'knot' do
     end
   end
 
-#  context 'unsupported operating system' do
-#    describe 'knot class without any parameters on Redhat/Solaris/Nexenta' do
-#      let(:facts) {{
-#        :osfamily        => 'Solaris',
-#        :operatingsystem => 'Nexenta',
-#      }}
-#
-#      it { expect { is_expected.to contain_package('knot') }.to raise_error(Puppet::Error, /Nexenta not supported/) }
-#    end
-#  end
+  context 'unsupported operating system' do
+    describe 'knot class without any parameters and unkonw osfamily' do
+      it { is_expected.to raise_error(Puppet::Error, /OS family  not supported/) }
+    end
+  end
 end
