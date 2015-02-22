@@ -15,6 +15,8 @@
 
 This Puppet module manages the [Knot DNS](https://www.knot-dns.cz/) server.
 
+[![Build Status](https://travis-ci.org/tobru/puppet-knot.svg?branch=master)](https://travis-ci.org/tobru/puppet-knot)
+
 ## Module Description
 
 Knot DNS server is a "High-performance authoritative-only DNS server". This Puppet module
@@ -155,8 +157,10 @@ needed GEMs by running bundler. Then a rake task executes the Rspec tests: `bund
 
 ## Limitations
 
-At this time it is only tested under Ubuntu 14.04, but it should also work on Debian or any other
-.deb based distribution.
+At this time this module is only tested under Ubuntu 14.04, but it should also
+work on any other Linux distribution.
+However package repo management (`$manage_package_repo`) is only supported on
+Debian based OS families.
 
 ## Development
 
