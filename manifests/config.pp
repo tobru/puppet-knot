@@ -16,6 +16,7 @@ class knot::config {
   $service_user  = $::knot::service_user
   $service_group = $::knot::service_group
   $zone_defaults = $::knot::zone_defaults
+  $zone_options  = $::knot::zone_options
   $zones         = $::knot::zones
 
   # merge two hashes:
@@ -24,7 +25,6 @@ class knot::config {
   # When there is a duplicate key, the key in the user specified hash (rightmost) "wins"
   # Note: this is not a deep merge, it merges only the toplevel keys
   $system       = merge($::knot::params::system, $::knot::system)
-  $zone_options = merge($::knot::params::zone_options, $::knot::zone_options)
   $log          = merge($::knot::params::log, $::knot::log)
   $interfaces   = merge($::knot::params::interfaces, $::knot::interfaces)
   $control      = merge($::knot::params::control, $::knot::control)
