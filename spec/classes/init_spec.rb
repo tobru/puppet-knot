@@ -19,6 +19,25 @@ describe 'knot' do
 
         it { is_expected.to contain_service('knot') }
         it { is_expected.to contain_package('knot').with_ensure('present') }
+
+        it do
+          is_expected.to contain_file('/etc/knot/knot.conf') \
+            .with({
+              'ensure' => 'file',
+              'owner'  => 'knot',
+              'group'  => 'knot',
+            })
+            .with_content(/^# THIS CONFIGURATION IS MANAGED BY PUPPET$/)
+        end
+        it do
+          is_expected.to contain_file('/etc/knot/zones.conf') \
+            .with({
+              'ensure' => 'file',
+              'owner'  => 'knot',
+              'group'  => 'knot',
+            })
+            .with_content(/^# THIS CONFIGURATION IS MANAGED BY PUPPET$/)
+        end
       end
     end
   end
