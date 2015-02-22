@@ -157,6 +157,7 @@
 # Copyright 2015 Tobias Brunner
 #
 class knot (
+  # package installation handling
   $package_ensure        = $::knot::params::package_ensure,
   $package_name          = $::knot::params::package_name,
   $package_repo_location = $::knot::params::package_repo_location,
@@ -164,12 +165,14 @@ class knot (
   $package_repo_key      = $::knot::params::package_repo_key,
   $package_repo_key_src  = $::knot::params::package_repo_key_src,
   $manage_package_repo   = $::knot::params::manage_package_repo,
+  # system service configuration
   $service_name          = $::knot::params::service_name,
   $service_enable        = $::knot::params::service_enable,
   $service_ensure        = $::knot::params::service_ensure,
   $service_manage        = $::knot::params::service_manage,
   $service_user          = $::knot::params::service_user,
   $service_group         = $::knot::params::service_group,
+  # knot specific configuration
   $main_config_file      = $::knot::params::main_config_file,
   $zones_config_file     = $::knot::params::zones_config_file,
   $system                = $::knot::params::system,
