@@ -1,17 +1,30 @@
 {
   "name": "tobru-knot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "tobru",
   "summary": "Manage and configure Knot DNS",
   "license": "BSD-3-Clause",
   "source": "https://github.com/tobru/puppet-knot",
   "project_page": "https://github.com/tobru/puppet-knot",
   "issues_url": "https://github.com/tobru/puppet-knot/issues",
-  "tags": [ "knot", "dns", "network" ],
+  "tags": [
+    "knot",
+    "dns",
+    "network"
+  ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">=3.2.0 <5.0.0" }
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=3.2.0 <5.0.0"
+    }
   ],
   "operatingsystem_support": [
-    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "12.04", "14.04" ] }
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    }
   ]
 }
