@@ -62,29 +62,29 @@ class knot::params {
   $main_config_file = '/etc/knot/knot.conf'
   $zones_config_file = '/etc/knot/zones.conf'
   $system = {
-    identity => 'on',
-    version  => 'on',
+    'identity' => 'on',
+    'version'  => 'on',
   }
   $log = {
-    syslog => {
-      any  => 'info'
+    'syslog' => {
+      'any'  => 'info'
     },
-    stderr => {
-      any  => 'warning'
+    'stderr' => {
+      'any'  => 'warning'
     }
   }
   $interfaces = {
-    all_ipv4  => {
-      address => '0.0.0.0',
-      port    => 53,
+    'all_ipv4'  => {
+      'address' => '0.0.0.0',
+      'port'    => 53,
     },
-    all_ipv6  => {
-      address => '[::]',
-      port    => 53,
+    'all_ipv6'  => {
+      'address' => '[::]',
+      'port'    => 53,
     }
   }
   $control = {
-    listen-on => 'knot.sock'
+    'listen-on' => 'knot.sock'
   }
   $zone_storage = '/var/lib/knot'
   $dnssec_keydir = '/etc/knot/dnssec_keys.d'
