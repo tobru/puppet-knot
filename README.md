@@ -16,6 +16,7 @@
 This Puppet module manages the [Knot DNS](https://www.knot-dns.cz/) server.
 
 [![Build Status](https://travis-ci.org/tobru/puppet-knot.svg?branch=master)](https://travis-ci.org/tobru/puppet-knot)
+[![tobru-knot](https://img.shields.io/puppetforge/v/tobru/knot.svg)](https://forge.puppetlabs.com/tobru/knot)
 
 ## Module Description
 
