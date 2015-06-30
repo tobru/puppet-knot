@@ -144,6 +144,9 @@
 #       'notify-out' => 'server1' },
 #   }
 #
+# [*manage_zones*]
+#  Default: true. Set false if you want to manage only package and service.
+#
 # === Examples
 #
 # See main documentation in README.md

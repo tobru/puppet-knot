@@ -88,5 +88,6 @@ class knot::params {
   }
   $zone_storage = '/var/lib/knot'
   $dnssec_keydir = '/etc/knot/dnssec_keys.d'
+  $manage_zones = true
 
 }
