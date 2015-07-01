@@ -133,6 +133,7 @@ knot::zones:
   myzone.net:
   myotherzone.com:
     xfr-out: 'server1'
+knot::manage_zones: true
 ```
 
 ### Managing zones (and defaults for all zones)
