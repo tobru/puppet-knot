@@ -2,7 +2,7 @@
 # see man 5 knot.conf for all available configuration options
 <%- @zones.each do |k,v| -%>
 <%= k -%> {
-  file "<%= k -%>.zone";
+  file "<%= k.gsub(/\//, "_") -%>.zone";
 <%- if (@zone_defaults && v && v.length > 0) then _v = @zone_defaults.merge(v) -%>
 <%- elsif (v && v.length > 0) then _v = v -%>
 <%- elsif (@zone_defaults && @zone_defaults.length > 0) then _v = @zone_defaults -%>
