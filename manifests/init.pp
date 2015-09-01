@@ -191,6 +191,7 @@ class knot (
   $zone_defaults         = undef,
   $zone_options          = undef,
   $zones                 = {},
+  $manage_zones          = $::knot::params::manage_zones,
 ) inherits ::knot::params {
 
   # mandatory parameters
@@ -217,6 +218,7 @@ class knot (
   validate_bool($dnssec_enable)
   validate_string($dnssec_keydir)
   validate_hash($zones)
+  validate_bool($manage_zones)
 
   # optional parameters
   if $keys { validate_hash($keys) }
