@@ -60,7 +60,7 @@ zones {
 <%- if @zone_options then @zone_options.each do |k,v| -%>
   <%= k %> <%= v %>;
 <%- end end -%>
-  include "<%= @zones_config_file %>";
+  include "<%= @zones_file %>";
 }
 
 log {
