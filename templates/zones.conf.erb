@@ -1,14 +1,16 @@
 # THIS CONFIGURATION IS MANAGED BY PUPPET
 # see man 5 knot.conf for all available configuration options
-<%- @zones.each do |k,v| -%>
-<%= k -%> {
-  file "<%= k.gsub(/\//, "_") -%>.zone";
-<%- if (@zone_defaults && v && v.length > 0) then _v = @zone_defaults.merge(v) -%>
-<%- elsif (v && v.length > 0) then _v = v -%>
-<%- elsif (@zone_defaults && @zone_defaults.length > 0) then _v = @zone_defaults -%>
+
+zone:
+    <%- @zones.sort.each do |k,v| -%>
+    - domain: <%= k -%> 
+      <%- if (@zone_defaults && v && v.length > 0) then _v = @zone_defaults.merge(v) -%>
+      <%- elsif (v && v.length > 0) then _v = v -%>
+      <%- elsif (@zone_defaults && @zone_defaults.length > 0) then _v = @zone_defaults -%>
+      <%- end -%>
+      <%- if (_v && _v.length > 0) then _v.sort.each do |y,z| -%>
+      <%- next if y.start_with?('_') -%>
+      <%= y %>: <%= z %>
+      <%- end end -%>
 <%- end -%>
-<%- if (_v && _v.length > 0) then _v.each do |y,z| -%>
-  <%= y %> <%= z %>;
-<%- end end -%>
-}
-<%- end -%>
+

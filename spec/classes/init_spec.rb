@@ -18,7 +18,7 @@ describe 'knot' do
         it { is_expected.to contain_class('knot::service').that_subscribes_to('knot::config') }
 
         it { is_expected.to contain_service('knot') }
-        it { is_expected.to contain_package('knot').with_ensure('present') }
+        it { is_expected.to contain_package('knot').with_ensure('installed') }
 
         it do
           is_expected.to contain_file('/etc/knot/knot.conf') \

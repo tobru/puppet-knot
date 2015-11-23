@@ -1,74 +1,66 @@
 # THIS CONFIGURATION IS MANAGED BY PUPPET
 # see man 5 knot.conf for all available configuration options
-system {
-  user <%= @service_user %>.<%= @service_group %>;
-<%- @system.each do |k,v| -%>
-  <%= k %> <%= v %>;
-<%- end -%>
-}
 
-<%- if @keys -%>
-keys {
-<%- @keys.each do |k,v| -%>
-  <%= k %> <%= v['algorithm'] %> "<%= v['key'] %>";
-<%- end -%>
-}
-<%- end -%>
+server:
+    user: <%= @service_user %>:<%= @service_group %>
+    <%- @server.sort.each do |k,v| -%>
+    <%= k %>: <%= v %>
+    <%- end -%>
 
-interfaces {
-<%- @interfaces.each do |k,v| -%>
-  <%= k -%> {
-  <%- v.each do |y,z| -%>
-    <%= y %> <%= z %>;
-  <%- end -%>
-  }
-<%- end -%>
-}
-
-<%- if @remotes -%>
-remotes {
-<%- @remotes.each do |k,v| -%>
-  <%= k -%> {
-  <%- v.each do |y,z| -%>
-    <%= y %> <%= z %>;
-  <%- end -%>
-  }
-<%- end -%>
-}
+log:
+<%- @log.sort.each do |k,v| -%>
+    - target: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%= y %>: <%= z %>
+    <%- end -%>
 <%- end -%>
 
-<%- if @groups -%>
-groups {
-<%- @groups.each do |k,v| -%>
-  <%= k %> { <%= v %> }
-<%- end -%>
-}
-<%- end -%>
-
-control {
-<%- @control.each do |k,v| -%>
-  <%= k %> <%= v %>;
-<%- end -%>
-}
-
-zones {
-  storage "<%= @zone_storage %>";
-<%- if @dnssec_enable -%>
-  dnssec-enable on;
-  dnssec-keydir "<%= @dnssec_keydir %>";
-<%- end -%>
-<%- if @zone_options then @zone_options.each do |k,v| -%>
-  <%= k %> <%= v %>;
+key:
+<%- if @keys then @keys.sort.each do |k,v| -%>
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%= y %>: <%= z %>
+    <%- end -%>
 <%- end end -%>
-  include "<%= @zones_file %>";
-}
 
-log {
-<%- @log.each do |k,v| -%>
-  <%= k -%> {
-  <%- v.each do |y,z| -%>
-    <%= y %> <%= z %>;
-  <%- end -%>
-  }
-<%- end -%>
-}
+remote:
+<%- if @remotes then @remotes.sort.each do |k,v| -%>
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%= y %>: <%= z %>
+    <%- end -%>
+<%- end end -%>
+
+acl:
+<%- if @acls then  @acls.sort.each do |k,v| -%>
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%= y %>: <%= z %>
+    <%- end -%>
+<%- end end -%>
+
+template:
+<%- if @templates then @templates.sort.each do |k,v| -%>
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%- next if y.start_with?('_') -%>
+      <%= y %>: <%= z %>
+    <%- end -%>
+<%- end end -%>
+
+control:
+<%- if @control then @control.sort.each do |k,v| -%>
+    <%= k %>: <%= v %>
+<%- end end -%>
+
+<%- if @modules then @modules.sort.each do |k,v| -%>
+mod-<%= k %>:
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%- next if y == 'id' -%>
+      <%= y %>: <%= z %>
+    <%- end %>
+<%- end end -%>
+
+# Include zones configuration file
+include: "<%= @zones_config_file %>"

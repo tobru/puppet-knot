@@ -8,24 +8,24 @@ class knot::params {
   # OS specific parameters
   case $::osfamily {
     'Debian': {
-      $package_name          = 'knot'
-      $service_name          = 'knot'
-      $service_user          = 'knot'
-      $service_group         = 'knot'
+      $package_name = 'knot'
+      $service_name = 'knot'
+      $service_user = 'knot'
+      $service_group = 'knot'
       # Choose repo location according to LSB distribution id
       # Only used when manage_package_repo and on a Debian based OS
       case $::lsbdistid {
         'Debian': {
           $package_repo_location = 'http://deb.knot-dns.cz/debian/'
-          $package_repo_repos    = 'main'
-          $package_repo_key      = 'DF3D585DB8F0EB658690A554AC0E47584A7A714D'
-          $package_repo_key_src  = 'http://deb.knot-dns.cz/debian/apt.key'
+          $package_repo_repos = 'main'
+          $package_repo_key = 'DF3D585DB8F0EB658690A554AC0E47584A7A714D'
+          $package_repo_key_src = 'http://deb.knot-dns.cz/debian/apt.key'
         }
         'Ubuntu': {
           $package_repo_location = 'http://ppa.launchpad.net/cz.nic-labs/knot-dns/ubuntu'
-          $package_repo_repos    = 'main'
-          $package_repo_key      = '52463488670E69A092007C24F2331238F9C59A45'
-          $package_repo_key_src  = undef
+          $package_repo_repos = 'main'
+          $package_repo_key = '52463488670E69A092007C24F2331238F9C59A45'
+          $package_repo_key_src = undef
         }
         default: {
           fail("LSB distid ${::lsbdistid} not supported")
@@ -33,61 +33,28 @@ class knot::params {
       }
     }
     'RedHat': {
-      $package_name          = 'knot'
-      $service_name          = 'knot'
-      $service_user          = 'knot'
-      $service_group         = 'knot'
+      $package_name = 'knot'
+      $service_name = 'knot'
+      $service_user = 'knot'
+      $service_group = 'knot'
       $package_repo_location = undef
-      $package_repo_repos    = undef
-      $package_repo_key      = undef
-      $package_repo_key_src  = undef
+      $package_repo_repos = undef
+      $package_repo_key = undef
+      $package_repo_key_src = undef
     }
     default: {
       fail("OS family ${::osfamily} not supported")
     }
   }
 
-  # package parameters
-  $package_ensure = present
-  $manage_package_repo = false
-
-  # service parameters
-  $service_enable = true
-  $service_ensure = running
-  $service_manage = true
-
-  # knot configuration defaults
-  # coming from the package installation
-  $dnssec_enable = false
-  $main_config_file = '/etc/knot/knot.conf'
-  $zones_config_file = '/etc/knot/zones.conf'
-  $system = {
-    'identity' => 'on',
-    'version'  => 'on',
+  ## Default parameters
+  $server = {
+    'listen' => [ '0.0.0.0@53', '::@53' ]
   }
   $log = {
     'syslog' => {
       'any'  => 'info'
     },
-    'stderr' => {
-      'any'  => 'warning'
-    }
   }
-  $interfaces = {
-    'all_ipv4'  => {
-      'address' => '0.0.0.0',
-      'port'    => 53,
-    },
-    'all_ipv6'  => {
-      'address' => '[::]',
-      'port'    => 53,
-    }
-  }
-  $control = {
-    'listen-on' => 'knot.sock'
-  }
-  $zone_storage = '/var/lib/knot'
-  $dnssec_keydir = '/etc/knot/dnssec_keys.d'
-  $manage_zones = true
 
 }
