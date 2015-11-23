@@ -15,15 +15,19 @@ class knot::install {
     $package_repo_key      = $::knot::package_repo_key
     $package_repo_key_src  = $::knot::package_repo_key_src
 
-    apt::source { 'knot_official':
-      comment     => 'Official repository for knot provided by knot-dns.cz',
+    ::apt::source { 'knot':
+      comment     => 'Official repository for Knot DNS provided by knot-dns.cz',
       location    => $package_repo_location,
       release     => $::lsbdistcodename,
       repos       => $package_repo_repos,
-      key         => $package_repo_key,
-      key_source  => $package_repo_key_src,
-      include_src => true,
-      include_deb => true,
+      key         => {
+        'id' => $package_repo_key,
+        'source' => $package_repo_key_src,
+      },
+      include     => {
+        'deb' => true,
+        'src' => false,
+      },
     } ->
     package { $package_name:
       ensure => $package_ensure,

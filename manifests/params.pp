@@ -18,13 +18,13 @@ class knot::params {
         'Debian': {
           $package_repo_location = 'http://deb.knot-dns.cz/debian/'
           $package_repo_repos    = 'main'
-          $package_repo_key      = '4A7A714D'
+          $package_repo_key      = 'DF3D585DB8F0EB658690A554AC0E47584A7A714D'
           $package_repo_key_src  = 'http://deb.knot-dns.cz/debian/apt.key'
         }
         'Ubuntu': {
           $package_repo_location = 'http://ppa.launchpad.net/cz.nic-labs/knot-dns/ubuntu'
           $package_repo_repos    = 'main'
-          $package_repo_key      = 'F9C59A45'
+          $package_repo_key      = '52463488670E69A092007C24F2331238F9C59A45'
           $package_repo_key_src  = undef
         }
         default: {
