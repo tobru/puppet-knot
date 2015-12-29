@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [2.0.1] - 2015-12-29
+### Fixed
+* Typo in variable - preventing module to work under Puppet 4
+
 ## [2.0.0] - 2015-12-29
 ### Added
 * Support for Knot 2.x
