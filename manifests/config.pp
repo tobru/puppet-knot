@@ -48,13 +48,13 @@ class knot::config {
   }
 
   if $manage_zones == false {
-    file { $zones_file:
+    file { $zones_config_file:
         ensure => present,
         owner  => $service_user,
         group  => $service_group,
     }
   } else {
-    file { $zones_file:
+    file { $zones_config_file:
       ensure  => file,
       owner   => $service_user,
       group   => $service_group,
