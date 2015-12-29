@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.0.0] - 2015-12-29
+### Added
+* Support for Knot 2.x
+
+This is a complete rewrite and does not support Knot 1.x anymore!
+
 ## [1.0.1] - 2015-02-22
 ### Added
 * Preparations to support other OS families than only Debian
