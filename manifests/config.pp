@@ -34,6 +34,16 @@ class knot::config {
   $server = merge($::knot::params::server, $::knot::server)
   $log = merge($::knot::params::log, $::knot::log)
 
+  if $::knot::manage_user {
+    user { $::knot::service_user:
+      ensure  => present,
+      comment => 'Knot Service User',
+      home    => $::knot::default_storage,
+      shell   => '/bin/false',
+      system  => true,
+    }
+  }
+
   file { $config_file:
     ensure  => file,
     owner   => $service_user,

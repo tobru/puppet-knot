@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [2.1.0] - 2015-12-30
+### Added
+* New parameter for managing the server user: `$manage_user`
+
 ## [2.0.2] - 2015-12-29
 ### Fixed
 * Typo in variable - preventing module to work under Puppet 4

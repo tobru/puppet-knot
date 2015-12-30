@@ -35,6 +35,9 @@
 #   Only used when $manage_package_repo is true.
 #   Repos used on the repository location
 #
+# [*manage_user*]
+#   Default: true. Manages the Puppet user resource for the user $service_user
+#
 # [*service_enable*]
 #   Default: true. See Puppet type 'service' documentation
 #
@@ -164,6 +167,7 @@ class knot (
   $package_repo_location = $::knot::params::package_repo_location,
   $package_repo_repos = $::knot::params::package_repo_repos,
   # system service configuration
+  $manage_user = true,
   $service_enable = true,
   $service_ensure = 'running',
   $service_group = $::knot::params::service_group,
@@ -203,6 +207,7 @@ class knot (
   validate_string($package_repo_repos)
 
   # system service configuration
+  validate_bool($manage_user)
   validate_bool($service_enable)
   validate_re($service_ensure, '^stopped|false|running|true$')
   validate_string($service_group)

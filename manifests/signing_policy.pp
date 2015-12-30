@@ -7,7 +7,7 @@ define knot::signing_policy (
 ) {
 
   $_params_hash = $data[$name]
-  $_params = inline_template("<%- @_params_hash.each do |k,v| -%><%= k -%> <%= v -%> <% end -%>")
+  $_params = inline_template('<%- @_params_hash.each do |k,v| -%><%= k -%> <%= v -%> <% end -%>')
 
   exec { "create_signing_policy_${name}":
     command => "/usr/sbin/keymgr policy add ${name} ${_params}",
