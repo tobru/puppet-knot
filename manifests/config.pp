@@ -16,6 +16,7 @@ class knot::config {
   $zone_defaults = $::knot::zone_defaults
   $zone_options = $::knot::zone_options
   $zones_config_file = $::knot::zones_config_file
+  $zones_config_template = $::knot::zones_config_template
 
   # knot configuration sections
   $acls = $::knot::acls
@@ -68,7 +69,7 @@ class knot::config {
       ensure  => file,
       owner   => $service_user,
       group   => $service_group,
-      content => template('knot/zones.conf.erb');
+      content => template($zones_config_template);
     }
     if $dnssec_enable {
       $_all_zones = keys($zones)

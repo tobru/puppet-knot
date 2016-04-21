@@ -80,6 +80,9 @@
 # [*zones_config_file*]
 #   Default: '/etc/knot/zones.conf'. Full path to the zones configuration file
 #
+# [*zones_config_template*]
+#   Default: 'knot/zones.conf.erb'. Reference to zone.conf erb template
+#
 # [*acls*]
 #   Default: {}
 #   Acl section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#acl-section
@@ -182,6 +185,7 @@ class knot (
   $manage_zones = true,
   $zone_defaults = {},
   $zones_config_file = '/etc/knot/zones.conf',
+  $zones_config_template = 'knot/zones.conf.erb',
   # knot configuration sections
   $acls = {},
   $control = {},
