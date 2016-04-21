@@ -198,6 +198,12 @@ with git.
 
 ## Reference
 
+### Classes
+
+#### Public Classes
+
+* `knot`: Installs and configures Knot in your environment.
+
 All configuration is passed to `init.pp`:
 
 [*manage_package_repo*]
@@ -348,6 +354,17 @@ All configuration is passed to `init.pp`:
 [*signing_policies*]
   Default: {}.
   Creates signing policies. See https://www.knot-dns.cz/docs/2.0/html/man_keymgr.html#policy-commands
+
+#### Private Classes
+
+* `knot::install`: Manages the APT repo and installs Knot
+* `knot::config`: Writes the Knot configuration files and prepares DNSSEC things
+* `knot::service`: Manages the Knot system service
+
+### Defined Types
+
+* `knot::signing_policy`: Adds signing policy using `keymgr`
+* `knot::zone_policy`: Adds zone policy using `keymgr`
 
 ## Testing
 
