@@ -211,22 +211,22 @@ All configuration is passed to `init.pp`:
   Default: On Debian 'knot'. Package name to install knot
 
 [*package_repo_key*]
-  Default: Depends on $::lsbdistid, see params.pp
+  Default: Depends on $::lsbdistid, see params.pp.
   Only used when $manage_package_repo is true.
   Signing key of the packages
 
 [*package_repo_key_src*]
-  Default: Depends on $::lsbdistid, see params.pp
+  Default: Depends on $::lsbdistid, see params.pp.
   Only used when $manage_package_repo is true.
   Source of the package signing public key
 
 [*package_repo_location*]
-  Default: Depends on $::lsbdistid, see params.pp
+  Default: Depends on $::lsbdistid, see params.pp.
   Only used when $manage_package_repo is true.
   Location of the package repository
 
 [*package_repo_repos*]
-  Default: Depends on $::lsbdistid, see params.pp
+  Default: Depends on $::lsbdistid, see params.pp.
   Only used when $manage_package_repo is true.
   Repos used on the repository location
 
@@ -279,59 +279,65 @@ All configuration is passed to `init.pp`:
   Default: 'knot/zones.conf.erb'. Reference to zone.conf erb template
 
 [*acls*]
-  Default: {}
+  Default: {}.
   Acl section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#acl-section
 
 [*control*]
-  Default: {}
+  Default: {}.
   Control section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#control-section
 
 [*keys*]
-  Default: {}
+  Default: {}.
   Keys section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#key-section
 
 [*log*]
   Default:
+```
     $log = {
       syslog => {
         any  => 'info'
       }
     }
+```
   Logging section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#logging-section
 
 [*modules*]
-  Default: {}
+  Default: {}.
   Modules section. See https://www.knot-dns.cz/docs/2.0/html/reference.html -> module-X
   Key: module name without "mod-", Values: Hash of module parameters.
 
 [*remotes*]
-  Default: {}
+  Default: {}.
   Remotes section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#remote-section
 
 [*server*]
   Default:
+```
     $server = {
       listen => [
         '0.0.0.0@53',
         '::@53',
       ]
     }
+```
   Server section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#server-section
 
 [*templates*]
-  Default: {}
+  Default: {}.
   Template section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#template-section
 
 [*zones*]
   Default: {}. Hash of zones. They will be added to the $zones_config_file file.
   See https://www.knot-dns.cz/docs/2.0/html/reference.html#zone-section
   Example:
+```
   $zones = {
     'myzone.net'      => '',
     'myotherzone.com' => {
       'xfr-out'    => 'server1',
       'notify-out' => 'server1' },
   }
+```
 
 [*dnssec_enable*]
   Default: true. When set to true, then the $dnssec_keydir gets created and KASP initialized
@@ -340,7 +346,7 @@ All configuration is passed to `init.pp`:
   Default: '/var/lib/knot/kasp'. Full path to the 'dnssec-keydir'
 
 [*signing_policies*]
-  Default: {}
+  Default: {}.
   Creates signing policies. See https://www.knot-dns.cz/docs/2.0/html/man_keymgr.html#policy-commands
 
 ## Testing
