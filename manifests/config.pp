@@ -14,7 +14,6 @@ class knot::config {
   $service_user = $::knot::service_user
   $signing_policies = $::knot::signing_policies
   $zone_defaults = $::knot::zone_defaults
-  $zone_options = $::knot::zone_options
   $zones_config_file = $::knot::zones_config_file
   $zones_config_template = $::knot::zones_config_template
 
