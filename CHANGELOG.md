@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [2.1.1] - 2016-04-21
+### Added
+* New parameter for defining the place of the zones.conf erb template: `$zones_config_template`
+
+### Fixed
+* Various documentation updates and fixes
+* Removed old parameters
+* Replaced deprected `checkconf` by `conf-check`
+
 ## [2.1.0] - 2015-12-30
 ### Added
 * New parameter for managing the server user: `$manage_user`
