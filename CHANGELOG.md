@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2.1.2] - 2016-04-29
+### Added
+* New parameter `$template_parameter` to define the name of the template parameter
+  used in the zones hash. Can be handy if a custom zones.conf.erb is used.
+
 ## [2.1.1] - 2016-04-21
 ### Added
 * New parameter for defining the place of the zones.conf erb template: `$zones_config_template`

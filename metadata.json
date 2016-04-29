@@ -1,6 +1,6 @@
 {
   "name": "tobru-knot",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "tobru",
   "summary": "Manage and configure Knot DNS",
   "license": "BSD-3-Clause",
