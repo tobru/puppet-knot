@@ -273,6 +273,9 @@ All configuration is passed to `init.pp`:
 [*manage_zones*]
  Default: true. Set false if you want to manage only package and service.
 
+[*template_parameter*]
+ Default: template. Name of the template parameter used inside the zones hash.
+
 [*zone_defaults*]
   Default: {}. Hash which contains default parameters which are added to every zone
   definition under the 'zones' statement. Can be used f.e. to set a default template.

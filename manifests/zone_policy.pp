@@ -8,11 +8,12 @@ define knot::zone_policy (
 ) {
 
   $_zone_config = $zones[$name]
+  $_template_parameter = $::knot::template_parameter
 
   if $_zone_config['_signing_policy'] {
     $_policy = $_zone_config['_signing_policy']
-  } elsif $_zone_config['template'] {
-    $_template = $_zone_config['template']
+  } elsif $_zone_config[$_template_parameter] {
+    $_template = $_zone_config[$_template_parameter]
     if $templates[$_template]['_signing_policy'] {
       $_policy = $templates[$_template]['_signing_policy']
     }

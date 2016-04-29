@@ -42,6 +42,7 @@ class knot (
   $default_storage = '/var/lib/knot',
   $main_config_file = '/etc/knot/knot.conf',
   $manage_zones = true,
+  $template_parameter = 'template',
   $zone_defaults = {},
   $zones_config_file = '/etc/knot/zones.conf',
   $zones_config_template = 'knot/zones.conf.erb',
@@ -84,8 +85,10 @@ class knot (
   validate_absolute_path($default_storage)
   validate_absolute_path($main_config_file)
   validate_bool($manage_zones)
+  validate_string($template_parameter)
   validate_hash($zone_defaults)
   validate_absolute_path($zones_config_file)
+  validate_string($zones_config_template)
 
   # knot configuration sections
   validate_hash($acls)
