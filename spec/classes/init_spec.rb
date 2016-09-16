@@ -13,9 +13,9 @@ describe 'knot' do
         it { is_expected.to compile.with_all_deps }
 
         it { is_expected.to contain_class('knot::params') }
-        it { is_expected.to contain_class('knot::install').that_comes_before('knot::config') }
+        it { is_expected.to contain_class('knot::install').that_comes_before('Class[knot::config]') }
         it { is_expected.to contain_class('knot::config') }
-        it { is_expected.to contain_class('knot::service').that_subscribes_to('knot::config') }
+        it { is_expected.to contain_class('knot::service').that_subscribes_to('Class[knot::config]') }
 
         it { is_expected.to contain_service('knot') }
         it { is_expected.to contain_package('knot').with_ensure('installed') }
