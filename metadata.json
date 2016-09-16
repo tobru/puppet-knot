@@ -1,6 +1,6 @@
 {
   "name": "tobru-knot",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "author": "tobru",
   "summary": "Manage and configure Knot DNS",
   "license": "BSD-3-Clause",
@@ -30,18 +30,19 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "12.04",
-        "14.04"
+        "14.04",
+        "16.04"
       ]
     }
   ],
   "requirements": [
     {
       "name": "pe",
-      "version_requirement": ">=3.7.0 <5.0.0"
+      "version_requirement": ">=3.8.0 <5.0.0"
     },
     {
       "name": "puppet",
-      "version_requirement": ">=3.7.0 <5.0.0"
+      "version_requirement": ">=3.8.0 <5.0.0"
     }
   ]
 }
