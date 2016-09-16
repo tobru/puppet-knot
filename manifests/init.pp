@@ -52,14 +52,11 @@ class knot (
   $keys = {},
   $log = { 'syslog' => { 'any' => 'info'} },
   $modules = {},
+  $policies = {},
   $remotes = {},
   $server = { 'listen' => [ '0.0.0.0@53', '::@53' ] },
   $templates = {},
   $zones = {},
-  # DNSSEC
-  $dnssec_enable = true,
-  $dnssec_keydir = '/var/lib/knot/kasp',
-  $signing_policies = {}
 ) inherits ::knot::params {
 
   # package installation handling
@@ -96,15 +93,11 @@ class knot (
   validate_hash($keys)
   validate_hash($log)
   validate_hash($modules)
+  validate_hash($policies)
   validate_hash($remotes)
   validate_hash($server)
   validate_hash($templates)
   validate_hash($zones)
-
-  # DNSSEC
-  validate_bool($dnssec_enable)
-  validate_absolute_path($dnssec_keydir)
-  validate_hash($signing_policies)
 
   class { '::knot::install': } ->
   class { '::knot::config': } ~>

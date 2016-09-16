@@ -12,7 +12,6 @@ class knot::config {
   $manage_zones = $::knot::manage_zones
   $service_group = $::knot::service_group
   $service_user = $::knot::service_user
-  $signing_policies = $::knot::signing_policies
   $zone_defaults = $::knot::zone_defaults
   $zones_config_file = $::knot::zones_config_file
   $zones_config_template = $::knot::zones_config_template
@@ -22,6 +21,7 @@ class knot::config {
   $control = $::knot::control
   $keys = $::knot::keys
   $modules = $::knot::modules
+  $policies = $::knot::policies
   $remotes = $::knot::remotes
   $templates = $::knot::templates
   $zones = $::knot::zones
@@ -69,42 +69,6 @@ class knot::config {
       owner   => $service_user,
       group   => $service_group,
       content => template($zones_config_template);
-    }
-    if $dnssec_enable {
-      $_all_zones = keys($zones)
-      ::knot::zone_policy { $_all_zones:
-        zones         => $zones,
-        templates     => $templates,
-        dnssec_keydir => $dnssec_keydir,
-        user          => $service_user,
-        group         => $service_group,
-        require       => Exec['initialize_kasp'],
-      }
-    }
-  }
-
-  if $dnssec_enable {
-    $_signing_policy_names = keys($signing_policies)
-
-    file { $dnssec_keydir:
-      ensure  => directory,
-      owner   => $service_user,
-      group   => $service_group,
-      recurse => true,
-    } ->
-    exec { 'initialize_kasp':
-      command => '/usr/sbin/keymgr init',
-      creates => "${dnssec_keydir}/keys",
-      cwd     => $dnssec_keydir,
-      user    => $service_user,
-      group   => $service_group,
-      require => Package[$::knot::package_name],
-    } ->
-    ::knot::signing_policy { $_signing_policy_names:
-      data          => $signing_policies,
-      dnssec_keydir => $dnssec_keydir,
-      user          => $service_user,
-      group         => $service_group,
     }
   }
 

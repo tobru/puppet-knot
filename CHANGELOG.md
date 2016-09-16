@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [2.2.0] - 2016-09-16
+### Added
+* Support for DNSSEC configuration in Knot > 2.3.x
+  This means that management of policies in Kasp is not needed anymore
+  and is done in the Knot configuration.
+  See https://lists.nic.cz/pipermail/knot-dns-users/2016-August/000918.html
+  and https://www.knot-dns.cz/docs/2.x/html/configuration.html#automatic-dnssec-signing
+
+This version of the Puppet module doesn't support Knot < 2.3.x anymore. If you
+are using an older version of Knot, you should use the module version < 2.2.x
+
 ## [2.1.2] - 2016-04-29
 ### Added
 * New parameter `$template_parameter` to define the name of the template parameter

@@ -18,7 +18,7 @@ This Puppet module manages the [Knot DNS](https://www.knot-dns.cz/) server.
 [![Build Status](https://travis-ci.org/tobru/puppet-knot.svg?branch=master)](https://travis-ci.org/tobru/puppet-knot)
 [![tobru-knot](https://img.shields.io/puppetforge/v/tobru/knot.svg)](https://forge.puppetlabs.com/tobru/knot)
 
-**Info: Module version 2.x is only compatible with Knot 2.x. If you're still on Knot 1.x, please
+**Info: Module version 2.2.x is only compatible with Knot > 2.3.x. If you're still on Knot 1.x, please
 use the module version 1.x.**
 
 ## Module Description
@@ -122,11 +122,11 @@ knot::remotes:
 knot::templates:
   dnssec:
     dnssec-signing: on
+    dnssec-policy: default_rsa
     storage: /var/lib/knot
     zonefile-sync: -1
     kasp-db: /var/lib/knot/kasp
     file: /var/lib/knot/zones/%s.zone
-    _signing_policy: default_rsa
   default:
     storage: /var/lib/knot
     file: /var/lib/knot/zones/%s.zone
@@ -140,7 +140,7 @@ knot::keys:
   key2:
     algorithm: hmac-sha1
     secret: c0570d4931593d46333c9ddf15894a8550e131f4
-knot::signing_policies:
+knot::policies:
   default_rsa:
     algorithm: RSASHA256
     zsk-size: 1024
@@ -169,22 +169,18 @@ only be used for setting a default template for all zones.
 
 ### Automatic DNSSEC signing
 
-For an overview on how automatic DNSSEC signing works in Knot, see [official docs](https://www.knot-dns.cz/docs/2.0/html/configuration.html#automatic-dnssec-signing).
-The Puppet module prepares the `DNSSEC KASP database` and is able to create signing
-policies. Just pass a hash of policies to the parameter `signing_policies`.
-Setting the special (Puppet module only) parameter `_signing_policy` to a name
-of a signing policy under a zone or template will configure this policy to a zone.
+For an overview on how automatic DNSSEC signing works in Knot, see [official docs](https://www.knot-dns.cz/docs/2.x/html/configuration.html#automatic-dnssec-signing).
 
 Overview of file locations with the following template configured:
 ```
 knot::templates:
   dnssec:
     dnssec-signing: on
+    dnssec-policy: default_rsa
     storage: /var/lib/knot
     zonefile-sync: -1
     kasp-db: /var/lib/knot/kasp
     file: /var/lib/knot/zones/%s.zone
-    _signing_policy: default_rsa
 ```
 
 * Zonefiles: `/var/lib/knot/zones/%s.zone`
@@ -279,7 +275,7 @@ All configuration is passed to `init.pp`:
 [*zone_defaults*]
   Default: {}. Hash which contains default parameters which are added to every zone
   definition under the 'zones' statement. Can be used f.e. to set a default template.
-  See https://www.knot-dns.cz/documentation/html/reference.html#zones-statement
+  See https://www.knot-dns.cz/docs/2.x/html/reference.html#zone-section
 
 [*zones_config_file*]
   Default: '/etc/knot/zones.conf'. Full path to the zones configuration file
@@ -289,15 +285,15 @@ All configuration is passed to `init.pp`:
 
 [*acls*]
   Default: {}.
-  Acl section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#acl-section
+  Acl section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#acl-section
 
 [*control*]
   Default: {}.
-  Control section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#control-section
+  Control section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#control-section
 
 [*keys*]
   Default: {}.
-  Keys section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#key-section
+  Keys section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#key-section
 
 [*log*]
   Default:
@@ -308,16 +304,20 @@ All configuration is passed to `init.pp`:
       }
     }
 ```
-  Logging section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#logging-section
+  Logging section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#logging-section
 
 [*modules*]
   Default: {}.
-  Modules section. See https://www.knot-dns.cz/docs/2.0/html/reference.html -> module-X
+  Modules section. See https://www.knot-dns.cz/docs/2.x/html/reference.html -> module-X
   Key: module name without "mod-", Values: Hash of module parameters.
+
+[*policies*]
+  Default: {}.
+  Configures DNSSEC policies. See https://www.knot-dns.cz/docs/2.x/html/reference.html#policy-section
 
 [*remotes*]
   Default: {}.
-  Remotes section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#remote-section
+  Remotes section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#remote-section
 
 [*server*]
   Default:
@@ -329,15 +329,15 @@ All configuration is passed to `init.pp`:
       ]
     }
 ```
-  Server section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#server-section
+  Server section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#server-section
 
 [*templates*]
   Default: {}.
-  Template section. See https://www.knot-dns.cz/docs/2.0/html/reference.html#template-section
+  Template section. See https://www.knot-dns.cz/docs/2.x/html/reference.html#template-section
 
 [*zones*]
   Default: {}. Hash of zones. They will be added to the $zones_config_file file.
-  See https://www.knot-dns.cz/docs/2.0/html/reference.html#zone-section
+  See https://www.knot-dns.cz/docs/2.x/html/reference.html#zone-section
   Example:
 ```
   $zones = {
@@ -354,20 +354,11 @@ All configuration is passed to `init.pp`:
 [*dnssec_keydir*]
   Default: '/var/lib/knot/kasp'. Full path to the 'dnssec-keydir'
 
-[*signing_policies*]
-  Default: {}.
-  Creates signing policies. See https://www.knot-dns.cz/docs/2.0/html/man_keymgr.html#policy-commands
-
 #### Private Classes
 
 * `knot::install`: Manages the APT repo and installs Knot
 * `knot::config`: Writes the Knot configuration files and prepares DNSSEC things
 * `knot::service`: Manages the Knot system service
-
-### Defined Types
-
-* `knot::signing_policy`: Adds signing policy using `keymgr`
-* `knot::zone_policy`: Adds zone policy using `keymgr`
 
 ## Testing
 

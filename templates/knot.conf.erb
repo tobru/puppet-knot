@@ -32,7 +32,15 @@ remote:
 <%- end end -%>
 
 acl:
-<%- if @acls then  @acls.sort.each do |k,v| -%>
+<%- if @acls then @acls.sort.each do |k,v| -%>
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%= y %>: <%= z %>
+    <%- end -%>
+<%- end end -%>
+
+policy:
+<%- if @policies then @policies.sort.each do |k,v| -%>
     - id: <%= k %>
     <%- v.sort.each do |y,z| -%>
       <%= y %>: <%= z %>
@@ -43,7 +51,6 @@ template:
 <%- if @templates then @templates.sort.each do |k,v| -%>
     - id: <%= k %>
     <%- v.sort.each do |y,z| -%>
-      <%- next if y.start_with?('_') -%>
       <%= y %>: <%= z %>
     <%- end -%>
 <%- end end -%>
