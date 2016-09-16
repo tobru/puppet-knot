@@ -7,8 +7,6 @@ class knot::config {
   # get variables from the toplevel manifest for usage in the template
   $config_file = $::knot::main_config_file
   $default_storage = $::knot::default_storage
-  $dnssec_enable = $::knot::dnssec_enable
-  $dnssec_keydir = $::knot::dnssec_keydir
   $manage_zones = $::knot::manage_zones
   $service_group = $::knot::service_group
   $service_user = $::knot::service_user

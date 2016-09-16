@@ -42,7 +42,7 @@ It also manages the installation of the package and starting/restarting the syst
   * `/etc/knot/knot.conf.puppet`
   * `/etc/knot/zones.conf.puppet`
 * Creation of the folders and managing of the user and group rights
-  on `$default_storage` and `$dnssec_keydir`
+  on `$default_storage`
 * Creation of Signing Policies
 
 ### Beginning with knot
@@ -106,7 +106,6 @@ knot::manage_package_repo: true
 knot::zones:
   myzone.ch:
     template: dnssec
-    _signing_policy: default_rsa
   myotherzone.ch: {}
 knot::server:
   identity: 'noidentityhere'
@@ -347,12 +346,6 @@ All configuration is passed to `init.pp`:
       'notify-out' => 'server1' },
   }
 ```
-
-[*dnssec_enable*]
-  Default: true. When set to true, then the $dnssec_keydir gets created and KASP initialized
-
-[*dnssec_keydir*]
-  Default: '/var/lib/knot/kasp'. Full path to the 'dnssec-keydir'
 
 #### Private Classes
 
