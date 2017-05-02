@@ -47,6 +47,15 @@ policy:
     <%- end -%>
 <%- end end -%>
 
+<%- if @modules then @modules.sort.each do |k,v| -%>
+mod-<%= k %>:
+    - id: <%= k %>
+    <%- v.sort.each do |y,z| -%>
+      <%- next if y == 'id' -%>
+      <%= y %>: <%= z %>
+    <%- end %>
+<%- end end -%>
+
 template:
 <%- if @templates then @templates.sort.each do |k,v| -%>
     - id: <%= k %>
@@ -58,15 +67,6 @@ template:
 control:
 <%- if @control then @control.sort.each do |k,v| -%>
     <%= k %>: <%= v %>
-<%- end end -%>
-
-<%- if @modules then @modules.sort.each do |k,v| -%>
-mod-<%= k %>:
-    - id: <%= k %>
-    <%- v.sort.each do |y,z| -%>
-      <%- next if y == 'id' -%>
-      <%= y %>: <%= z %>
-    <%- end %>
 <%- end end -%>
 
 # Include zones configuration file
